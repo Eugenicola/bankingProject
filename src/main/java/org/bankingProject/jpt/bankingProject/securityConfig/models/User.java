@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bankingProject.jpt.bankingProject.models.Accounts.Account;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import static jakarta.persistence.FetchType.EAGER;
 
@@ -45,19 +47,12 @@ public class User {
     /**
      * The roles that the user has
      */
+
+    @OneToMany(mappedBy = "primaryOwner")
+    private Set<Account> primaryOwner;// do we need to add another mappedBy to link to SecondaryOwner?
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
+
 }
 
-//The system must have 3 types of Users: Admins, AccountHolders and ThirdParty.
-//AccountHolders
-//The AccountHolders should be able to access their own accounts and only their accounts when passing the correct credentials using Basic Auth. AccountHolders have:
-//A name
-//Date of birth
-//A primaryAddress (which should be a separate address class)
-//An optional mailingAddress
-//Admins
-//Admins only have a name.
-//ThirdParty
-//The ThirdParty Accounts have a hashed key and a name.

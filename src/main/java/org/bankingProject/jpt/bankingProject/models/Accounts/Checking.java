@@ -1,21 +1,20 @@
-package org.bankingProject.jpt.bankingProject.models;
+package org.bankingProject.jpt.bankingProject.models.Accounts;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 
 @Data
 @Entity
 public class Checking extends Account{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private String secretKey;
+    @Embedded
     private Money minimumBalance;
+    @Embedded
     private Money monthlyMaintenanceFee;
+    @Enumerated(EnumType.STRING)
     private Status status;
 }

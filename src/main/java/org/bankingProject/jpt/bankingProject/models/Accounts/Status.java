@@ -1,4 +1,4 @@
-package org.bankingProject.jpt.bankingProject.models;
+package org.bankingProject.jpt.bankingProject.models.Accounts;
 
 import jakarta.persistence.Embeddable;
 

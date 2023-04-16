@@ -1,8 +1,9 @@
-package org.bankingProject.jpt.bankingProject.securityConfig.models;
+package org.bankingProject.jpt.bankingProject.models.Users;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.Data;
+import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 import org.bankingProject.jpt.bankingProject.utils.Address;
 
 import java.util.Date;
@@ -10,8 +11,8 @@ import java.util.Optional;
 
 @Data
 @Entity
-public class AccountHolders {
-    private String name;
+public class AccountHolders extends User {
+
     private Date birthDate;
     @Embedded
     private Address primaryAddress;
