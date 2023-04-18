@@ -1,4 +1,4 @@
-package org.bankingProject.jpt.bankingProject.models.Accounts;
+package org.bankingProject.jpt.bankingProject.models.accounts;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class StudentChecking extends Account{
+public class StudentChecking extends Account {
     private String secretKey;
     @Enumerated(EnumType.STRING)
     private Status status;

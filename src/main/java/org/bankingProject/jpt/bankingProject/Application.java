@@ -11,6 +11,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class Application {
@@ -27,19 +28,19 @@ public class Application {
 		@Bean
 		CommandLineRunner run(UserService userService) {
 			return args -> {
-				userService.saveRole(new Role(null, "ROLE_USER"));
+				userService.saveRole(new Role(null, "ROLE_ACCOUNT_HOLDER"));
 				userService.saveRole(new Role(null, "ROLE_ADMIN"));
+				userService.saveRole(new Role(null, "ROLE_THIRD_PARTY"));
 
-				userService.saveUser(new User(null, "John Doe", "john", "1234", new ArrayList<>()));
-				userService.saveUser(new User(null, "James Smith", "james", "1234", new ArrayList<>()));
-				userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new ArrayList<>()));
-				userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new ArrayList<>()));
+				userService.saveUser(new User(null, "John Doe", "john", "1234", new HashSet<>(), new ArrayList<>()));
+				userService.saveUser(new User(null, "James Smith", "james", "1234",new HashSet<>(),  new ArrayList<>()));
+				userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new HashSet<>(), new ArrayList<>()));
+				userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new HashSet<>(), new ArrayList<>()));
 
-				userService.addRoleToUser("john", "ROLE_USER");
+				userService.addRoleToUser("john", "ROLE_ACCOUNT_HOLDER");
 				userService.addRoleToUser("james", "ROLE_ADMIN");
-				userService.addRoleToUser("jane", "ROLE_USER");
-				userService.addRoleToUser("chris", "ROLE_ADMIN");
-				userService.addRoleToUser("chris", "ROLE_USER");
+				userService.addRoleToUser("jane", "ROLE_THIRD_PARTY");
+
 			};
 		}
 

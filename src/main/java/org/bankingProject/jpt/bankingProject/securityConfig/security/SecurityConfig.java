@@ -17,8 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -79,9 +78,10 @@ public class SecurityConfig {
         // set up authorization for different request matchers and user roles
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/api/login/**").permitAll()
-                .requestMatchers(GET, "/api/users").hasAnyAuthority("ROLE_USER")
-                .requestMatchers(POST, "/api/users").hasAnyAuthority("ROLE_ADMIN")
-                .anyRequest().authenticated());
+                .requestMatchers(GET, "/api/balance").hasAnyAuthority("ROLE_ADMIN","ROLE_ACCOUNT_HOLDER")
+                .requestMatchers(PUT, "/api/modifyBalance").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER")
+                .anyRequest().permitAll());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);
         // Add the custom authorization filter before the standard authentication filter.

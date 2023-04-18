@@ -1,5 +1,6 @@
-package org.bankingProject.jpt.bankingProject.models.Accounts;
+package org.bankingProject.jpt.bankingProject.models.accounts;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,14 +17,22 @@ public class Account {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column (name = "account_balance_amount")),
+            @AttributeOverride(name = "currency", column = @Column (name = "account_balance_currency"))
+    })
     private Money balance;
     @ManyToOne
     @JoinColumn(name="user_account")
-    private User PrimaryOwner;
+    private User primaryOwner;
     @ManyToOne
-    @JoinColumn(name="user_accountSecondary")
-    private Optional<User> SecondaryOwner;
+    @JoinColumn(name="user_account_secondary")
+    private User secondaryOwner;
     @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "amount", column = @Column (name = "account_penalty_fee_amount")),
+            @AttributeOverride(name = "currency", column = @Column (name = "account_penalty_fee_currency"))
+    })
     private Money penaltyFee;
     private Date creationDate;
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bankingProject.jpt.bankingProject.models.Accounts.Account;
+import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 
 import java.util.ArrayList;
 import java.util.Collection;

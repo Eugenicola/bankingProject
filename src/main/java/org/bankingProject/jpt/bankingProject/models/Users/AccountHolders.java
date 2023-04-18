@@ -16,7 +16,7 @@ public class AccountHolders extends User {
     private Date birthDate;
     @Embedded
     private Address primaryAddress;
-    private Optional<String> mailingAddress;
+    private String mailingAddress;
 }
 //A name
 //Date of birth
