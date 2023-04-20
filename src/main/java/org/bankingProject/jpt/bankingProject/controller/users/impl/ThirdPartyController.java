@@ -1,4 +1,4 @@
-package org.bankingProject.jpt.bankingProject.controller.impl;
+package org.bankingProject.jpt.bankingProject.controller.users.impl;
 
 import org.springframework.web.bind.annotation.RestController;
 

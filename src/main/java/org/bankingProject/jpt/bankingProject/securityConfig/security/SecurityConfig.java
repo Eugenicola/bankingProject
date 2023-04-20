@@ -80,7 +80,10 @@ public class SecurityConfig {
                 .requestMatchers("/api/login/**").permitAll()
                 .requestMatchers(GET, "/api/balance").hasAnyAuthority("ROLE_ADMIN","ROLE_ACCOUNT_HOLDER")
                 .requestMatchers(PUT, "/api/modifyBalance").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER")
+                .requestMatchers(POST, "/api/addUsers").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/addAccounts").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER", "ROLE_THIRD_PARTY")
+
                 .anyRequest().permitAll());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);

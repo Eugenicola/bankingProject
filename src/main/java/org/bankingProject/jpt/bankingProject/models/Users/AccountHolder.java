@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Data
 @Entity
-public class AccountHolders extends User {
+public class AccountHolder extends User {
 
     private Date birthDate;
     @Embedded

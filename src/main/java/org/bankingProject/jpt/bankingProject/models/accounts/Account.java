@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Optional;
 @Data
@@ -28,13 +29,15 @@ public class Account {
     @ManyToOne
     @JoinColumn(name="user_account_secondary")
     private User secondaryOwner;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column (name = "account_penalty_fee_amount")),
-            @AttributeOverride(name = "currency", column = @Column (name = "account_penalty_fee_currency"))
-    })
-    private Money penaltyFee;
+    private BigDecimal penaltyFee = new BigDecimal(40) ;
     private Date creationDate;
+
+    public void applyPenalty(BigDecimal minimumBalance){
+        if(balance.getAmount().compareTo(minimumBalance)<0){
+            setBalance(new Money(balance.getAmount().subtract(penaltyFee)));
+        }
+
+    }
 
 }
 

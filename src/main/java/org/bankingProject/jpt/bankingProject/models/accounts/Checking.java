@@ -1,10 +1,13 @@
 package org.bankingProject.jpt.bankingProject.models.accounts;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bankingProject.jpt.bankingProject.utils.Money;
+
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -12,18 +15,10 @@ import org.bankingProject.jpt.bankingProject.utils.Money;
 @Entity
 public class Checking extends Account {
     private String secretKey;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column (name = "checking_minimum_balance_amount")),
-            @AttributeOverride(name = "currency", column = @Column (name = "checking_minimum_balance_currency"))
-    })
-    private Money minimumBalance;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "amount", column = @Column (name = "checking_monthly_maintenance_amount")),
-            @AttributeOverride(name = "currency", column = @Column (name = "checking_monthly_maintenance_currency"))
-    })
-    private Money monthlyMaintenanceFee;
+
+    private BigDecimal minimumBalance = new BigDecimal(250);
+    private BigDecimal monthlyMaintenanceFee = new BigDecimal(12);
     @Enumerated(EnumType.STRING)
     private Status status;
+
 }
