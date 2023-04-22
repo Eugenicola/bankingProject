@@ -12,7 +12,6 @@ import java.util.Optional;
 @Data
 @Entity
 public class AccountHolder extends User {
-
     private Date birthDate;
     @Embedded
     private Address primaryAddress;

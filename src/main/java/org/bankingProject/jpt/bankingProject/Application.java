@@ -32,10 +32,10 @@ public class Application {
 				userService.saveRole(new Role(null, "ROLE_ADMIN"));
 				userService.saveRole(new Role(null, "ROLE_THIRD_PARTY"));
 
-				userService.saveUser(new User(null, "John Doe", "john", "1234", new HashSet<>(), new ArrayList<>()));
-				userService.saveUser(new User(null, "James Smith", "james", "1234",new HashSet<>(),  new ArrayList<>()));
-				userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new HashSet<>(), new ArrayList<>()));
-				userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new HashSet<>(), new ArrayList<>()));
+				userService.saveUser(new User(null, "John Doe", "john", "1234", new HashSet<>(), new HashSet<>(), new ArrayList<>()));
+				userService.saveUser(new User(null, "James Smith", "james", "1234",new HashSet<>(),  new HashSet<>(), new ArrayList<>()));
+				userService.saveUser(new User(null, "Jane Carry", "jane", "1234", new HashSet<>(), new HashSet<>(), new ArrayList<>()));
+				userService.saveUser(new User(null, "Chris Anderson", "chris", "1234", new HashSet<>(), new HashSet<>(), new ArrayList<>()));
 
 				userService.addRoleToUser("john", "ROLE_ACCOUNT_HOLDER");
 				userService.addRoleToUser("james", "ROLE_ADMIN");

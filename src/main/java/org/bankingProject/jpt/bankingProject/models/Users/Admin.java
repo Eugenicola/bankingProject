@@ -8,7 +8,6 @@ import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 @Entity
 public class Admin extends User {
 
-    private String name;
 }
 
 /*

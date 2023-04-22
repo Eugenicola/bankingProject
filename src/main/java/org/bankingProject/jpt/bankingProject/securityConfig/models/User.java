@@ -1,9 +1,11 @@
 package org.bankingProject.jpt.bankingProject.securityConfig.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 
 import java.util.ArrayList;
@@ -37,19 +39,24 @@ public class User {
     /**
      * The username used to log in
      */
+    @NotNull
     private String username;
 
     /**
      * The password used to log in
      */
+    @NotNull
     private String password;
 
     /**
      * The roles that the user has
      */
-
     @OneToMany(mappedBy = "primaryOwner")
-    private Set<Account> primaryOwner;// do we need to add another mappedBy to link to SecondaryOwner?
+    private Set<Account> accounts;// do we need to add another mappedBy to link to SecondaryOwner?
+
+    @OneToMany(mappedBy = "secondaryOwner")
+    private Set<Account> accountsSecondary;
+
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
 

@@ -4,9 +4,10 @@ import jakarta.persistence.Entity;
 import lombok.Data;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 
+import java.util.UUID;
+
 @Data
 @Entity
 public class ThirdParty extends User {
-    private String name;
-    private long hashedKey;
+    private String hashedKey = UUID.randomUUID().toString();
 }

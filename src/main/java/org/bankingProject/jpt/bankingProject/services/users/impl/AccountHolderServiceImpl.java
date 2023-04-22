@@ -5,12 +5,13 @@ import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.repositories.accounts.AccountRepository;
 import org.bankingProject.jpt.bankingProject.repositories.users.AccountHolderRepository;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
+import org.bankingProject.jpt.bankingProject.services.users.interfaces.AccountHolderServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccountHolderServiceImpl {
+public class AccountHolderServiceImpl implements AccountHolderServiceInterface {
 
     @Autowired
     private AccountHolderRepository accountHolderRepository;
@@ -18,7 +19,13 @@ public class AccountHolderServiceImpl {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Money viewBalance(long id, User primary, User secondary) throws Exception {
+
+    public AccountHolder addAccountHolder(AccountHolder user){
+        return accountHolderRepository.save(user);
+    }
+
+
+    /*public Money viewBalance(long id, User primary, User secondary) throws Exception {
         AccountHolder accountHolder = accountHolderRepository.findById(id).get();
         Account account = accountRepository.findByPrimaryOwnerOrSecondaryOwner(primary, secondary);
         //if the user logged in id is the same that the account primaryOwner
@@ -27,6 +34,6 @@ public class AccountHolderServiceImpl {
             throw new Exception("this account doesn't exist");
         }
         return account.getBalance();
-    }
+    }*/
 
 }

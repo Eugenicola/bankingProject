@@ -78,13 +78,16 @@ public class SecurityConfig {
         // set up authorization for different request matchers and user roles
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/api/login/**").permitAll()
+                .requestMatchers("/error/**").permitAll()
                 .requestMatchers(GET, "/api/balance").hasAnyAuthority("ROLE_ADMIN","ROLE_ACCOUNT_HOLDER")
                 .requestMatchers(PUT, "/api/modifyBalance").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(POST, "/api/addUsers").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/addAccountHolder").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/addAdminUser").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/addThirdParty").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/api/addAccounts").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER", "ROLE_THIRD_PARTY")
 
-                .anyRequest().permitAll());
+                .anyRequest().authenticated());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);
         // Add the custom authorization filter before the standard authentication filter.
