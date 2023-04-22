@@ -4,7 +4,9 @@ import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
 import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.repositories.accounts.AccountRepository;
 import org.bankingProject.jpt.bankingProject.repositories.users.AccountHolderRepository;
+import org.bankingProject.jpt.bankingProject.securityConfig.models.Role;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
+import org.bankingProject.jpt.bankingProject.securityConfig.repositories.RoleRepository;
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AccountHolderServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,15 @@ public class AccountHolderServiceImpl implements AccountHolderServiceInterface {
     private AccountHolderRepository accountHolderRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private AccountRepository accountRepository;
 
 
     public AccountHolder addAccountHolder(AccountHolder user){
+        Role role = roleRepository.findByName("ROLE_ACCOUNT_HOLDER");
+        user.getRoles().add(role);
         return accountHolderRepository.save(user);
     }
 

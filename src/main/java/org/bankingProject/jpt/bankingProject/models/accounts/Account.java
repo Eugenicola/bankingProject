@@ -1,16 +1,14 @@
 package org.bankingProject.jpt.bankingProject.models.accounts;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 import org.bankingProject.jpt.bankingProject.utils.Money;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.Optional;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -26,10 +24,10 @@ public class Account {
     private Money balance;
     @ManyToOne
     @JoinColumn(name="user_account")
-    private User primaryOwner;
+    private AccountHolder primaryOwner;
     @ManyToOne
     @JoinColumn(name="user_account_secondary")
-    private User secondaryOwner;
+    private AccountHolder secondaryOwner;
     private BigDecimal penaltyFee = new BigDecimal(40) ;
     private Date creationDate;
 
