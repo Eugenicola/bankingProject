@@ -1,16 +1,17 @@
 package org.bankingProject.jpt.bankingProject.models.accounts;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
-import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Account {
     @Id
@@ -21,7 +22,7 @@ public class Account {
             @AttributeOverride(name = "amount", column = @Column (name = "account_balance_amount")),
             @AttributeOverride(name = "currency", column = @Column (name = "account_balance_currency"))
     })
-    private Money balance;
+    Money balance;
     @ManyToOne
     @JoinColumn(name="user_account")
     private AccountHolder primaryOwner;
@@ -30,6 +31,7 @@ public class Account {
     private AccountHolder secondaryOwner;
     private BigDecimal penaltyFee = new BigDecimal(40) ;
     private Date creationDate;
+
 
     public void applyPenalty(BigDecimal minimumBalance){
         if(balance.getAmount().compareTo(minimumBalance)<0){

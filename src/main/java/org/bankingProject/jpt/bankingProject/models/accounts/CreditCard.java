@@ -25,6 +25,7 @@ public class CreditCard extends Account {
 
     private LocalDate lastInterestDate;
 
+
     public void applyInterest() {
         LocalDate currentDate = LocalDate.now();
         if (lastInterestDate == null || lastInterestDate.plusDays(30).isBefore(currentDate)) {

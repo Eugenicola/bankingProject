@@ -25,10 +25,8 @@ public class CheckingServiceImpl implements CheckingServiceInterface {
 
     @Autowired
     private CheckingRepository checkingRepository;
-
     @Autowired
     private StudentCheckingRepository studentCheckingRepository;
-
     @Autowired
     private AccountHolderRepository accountHolderRepository;
 

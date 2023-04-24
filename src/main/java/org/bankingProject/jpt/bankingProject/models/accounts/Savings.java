@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
