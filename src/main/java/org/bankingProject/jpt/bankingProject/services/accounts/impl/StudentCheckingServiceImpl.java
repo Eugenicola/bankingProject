@@ -1,4 +1,6 @@
 package org.bankingProject.jpt.bankingProject.services.accounts.impl;
 
-public class StudentCheckingServiceImpl {
+import org.bankingProject.jpt.bankingProject.services.accounts.interfaces.StudentCheckingServiceInterface;
+
+public class StudentCheckingServiceImpl implements StudentCheckingServiceInterface {
 }

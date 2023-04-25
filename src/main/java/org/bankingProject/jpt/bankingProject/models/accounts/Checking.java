@@ -20,4 +20,6 @@ public class Checking extends Account {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+
+
 }
