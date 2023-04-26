@@ -2,6 +2,7 @@ package org.bankingProject.jpt.bankingProject.controller.users.impl;
 
 import jakarta.validation.Valid;
 import org.bankingProject.jpt.bankingProject.models.Users.Admin;
+import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AdminServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class AdminController {
     public Admin addNewAdminUser(@RequestBody @Valid Admin user){
         return adminServiceInterface.addAdminUser(user);
     }
+
+
 
 
 }

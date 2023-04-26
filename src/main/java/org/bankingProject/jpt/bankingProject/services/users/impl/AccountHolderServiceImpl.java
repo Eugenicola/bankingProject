@@ -10,7 +10,11 @@ import org.bankingProject.jpt.bankingProject.securityConfig.repositories.RoleRep
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AccountHolderServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class AccountHolderServiceImpl implements AccountHolderServiceInterface {
@@ -31,9 +35,15 @@ public class AccountHolderServiceImpl implements AccountHolderServiceInterface {
         return accountHolderRepository.save(user);
     }
 
+    public Money viewBalance(long id ) {
+        Account account = accountRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found, please check the ID"));
+        return account.getBalance();
 
-    /*public Money viewBalance(long id, User primary, User secondary) throws Exception {
-        AccountHolder accountHolder = accountHolderRepository.findById(id).get();
+    }
+
+    /*public Money viewBalance(Account account) throws Exception {
+        AccountHolder accountHolder = accountHolderRepository.findById(account.getPrimaryOwner().getId()).orElseThrow(()->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found, please check the ID"));
         Account account = accountRepository.findByPrimaryOwnerOrSecondaryOwner(primary, secondary);
         //if the user logged in id is the same that the account primaryOwner
         if(!(accountHolder.equals(primary) || accountHolder.equals(secondary)) ){
