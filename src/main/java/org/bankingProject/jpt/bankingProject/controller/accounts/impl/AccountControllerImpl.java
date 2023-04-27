@@ -10,21 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class AccountControllerImpl {
 
     @Autowired
     private AccountServiceInterface accountServiceInterface;
-
-    @Autowired
-    private AdminServiceInterface adminServiceInterface;
-
-    @GetMapping("/adminBalance/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Money checkBalance(@PathVariable("id") long id) {
-        return adminServiceInterface.viewBalance(id);
-    }
 
     @DeleteMapping("/deleteAccount/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

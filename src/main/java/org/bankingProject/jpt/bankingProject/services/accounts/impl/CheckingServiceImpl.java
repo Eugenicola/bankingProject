@@ -30,20 +30,17 @@ public class CheckingServiceImpl implements CheckingServiceInterface {
     public Account createCheckingAccount(Checking account)  {
         Instant inst = Instant.now();
         Date currentDate = Date.from(inst);
-        //if the primaryOwner is less than 24,
         AccountHolder primaryOwner = accountHolderRepository.findById(account.getPrimaryOwner().getId()).orElseThrow(()->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found, please check the ID"));
         long age = currentDate.getTime() - primaryOwner.getBirthDate().getTime();
         long ageInYears = TimeUnit.MILLISECONDS.toDays(age) / 365;
             if (ageInYears >= 24) {
-                //Checking checkingAcc = (Checking) account;
                 return checkingRepository.save(account);
             }else {
                 checkingToStudentChecking(account);
                 return account;
             }
     }
-
 
     public void checkingToStudentChecking(Checking account){
         StudentChecking studentChecking = new StudentChecking();
@@ -57,8 +54,5 @@ public class CheckingServiceImpl implements CheckingServiceInterface {
         studentChecking.setStatus(account.getStatus());
         studentCheckingRepository.save(studentChecking);
     }
-    //When creating a new Checking account,
-    // if the primaryOwner is less than 24, a StudentChecking account should be created
-    // otherwise a regular Checking Account should be created.
 
 }

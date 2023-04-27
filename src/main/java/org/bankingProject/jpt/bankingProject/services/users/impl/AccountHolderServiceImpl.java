@@ -36,20 +36,20 @@ public class AccountHolderServiceImpl implements AccountHolderServiceInterface {
     }
 
     public Money viewBalance(long id ) {
+
         Account account = accountRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found, please check the ID"));
         return account.getBalance();
 
     }
 
-    /*public Money viewBalance(Account account) throws Exception {
-        AccountHolder accountHolder = accountHolderRepository.findById(account.getPrimaryOwner().getId()).orElseThrow(()->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found, please check the ID"));
-        Account account = accountRepository.findByPrimaryOwnerOrSecondaryOwner(primary, secondary);
+    /*public Money viewBalance(long id) throws Exception {
+       AccountHolder accountHolder = accountHolderRepository.findById(id).get();
+        accountRepository.findByPrimaryOwnerOrSecondaryOwner(primary, secondary);
         //if the user logged in id is the same that the account primaryOwner
         if(!(accountHolder.equals(primary) || accountHolder.equals(secondary)) ){
             //then return the balance of the account
             throw new Exception("this account doesn't exist");
-        }
+       }
         return account.getBalance();
     }*/
 

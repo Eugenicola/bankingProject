@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.bankingProject.jpt.bankingProject.models.Users.Admin;
 import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AdminServiceInterface;
+import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping ("/api")
 public class AdminController {
-
     @Autowired
     private AdminServiceInterface adminServiceInterface;
 
@@ -21,7 +21,11 @@ public class AdminController {
         return adminServiceInterface.addAdminUser(user);
     }
 
-
+    @GetMapping("/adminBalance/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Money checkBalance(@PathVariable("id") long id) {
+        return adminServiceInterface.viewBalance(id);
+    }
 
 
 }
