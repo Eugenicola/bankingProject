@@ -7,6 +7,8 @@ import org.bankingProject.jpt.bankingProject.services.users.interfaces.AdminServ
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +20,7 @@ public class AdminController {
     @PostMapping("/addAdminUser")
     @ResponseStatus(HttpStatus.CREATED)
     public Admin addNewAdminUser(@RequestBody @Valid Admin user){
+       //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return adminServiceInterface.addAdminUser(user);
     }
 

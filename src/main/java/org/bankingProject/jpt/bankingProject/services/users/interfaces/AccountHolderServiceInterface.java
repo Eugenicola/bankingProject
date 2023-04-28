@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AccountHolderServiceInterface {
 
-    AccountHolder addAccountHolder (AccountHolder user);
+    AccountHolder addAccountHolder (AccountHolder accountHolder);
 
-    //List<Money> (long id, User primary, User secondary) throws Exception;
+    Money viewBalance(long id);
 }
