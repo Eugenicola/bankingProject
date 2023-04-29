@@ -8,7 +8,7 @@ import org.bankingProject.jpt.bankingProject.utils.Money;
 
 public interface AdminServiceInterface {
 
-    Admin addAdminUser (Admin user);
+    Admin addAdminUser (Admin admin);
 
     Money viewBalance(long id) ;
 

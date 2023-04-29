@@ -1,13 +1,17 @@
 package org.bankingProject.jpt.bankingProject.controller.users.impl;
 
 import jakarta.validation.Valid;
+import org.bankingProject.jpt.bankingProject.models.TransferMoney;
 import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
+import org.bankingProject.jpt.bankingProject.services.accounts.interfaces.AccountServiceInterface;
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AccountHolderServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 
 @RestController
@@ -18,6 +22,8 @@ public class AccountHolderController {
     private AccountHolderServiceInterface accountHolderServiceInterface;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private AccountServiceInterface accountServiceInterface;
 
     @PostMapping("/addAccountHolder")
     @ResponseStatus(HttpStatus.CREATED)
@@ -29,8 +35,14 @@ public class AccountHolderController {
 
     @GetMapping("/balance/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Money checkBalance(@PathVariable("id") long id) {
+    public Money checkBalance(@PathVariable("id") long id) throws AccountNotFoundException  {
         return accountHolderServiceInterface.viewBalance(id);
     }
 
+    @PostMapping("/transfer")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransferMoney accHolderTransference(@RequestBody @Valid TransferMoney transferMoney)throws AccountNotFoundException{
+        return accountServiceInterface.transferMoney(transferMoney);
+    }
 }
+

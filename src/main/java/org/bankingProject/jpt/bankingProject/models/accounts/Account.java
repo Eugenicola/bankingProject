@@ -32,43 +32,23 @@ public class Account {
     private BigDecimal penaltyFee = new BigDecimal(40) ;
     private Date creationDate;
 
-
     public void applyPenalty(BigDecimal minimumBalance){
         if(balance.getAmount().compareTo(minimumBalance)<0){
             setBalance(new Money(balance.getAmount().subtract(penaltyFee)));
         }
-
     }
 
+
+    public void withdraw(BigDecimal amount) {
+        if (balance.getAmount().compareTo(amount)<0) {
+            System.out.println("No tienes suficiente saldo.");
+        } else {
+            setBalance(new Money(balance.getAmount().subtract(amount)));
+            System.out.println("Se retiró " + amount + " de tu cuenta de cheques.");
+        }
+    }
+    public void deposit(BigDecimal amount) {
+        setBalance(new Money(balance.getAmount().add(amount)));
+        System.out.println("Se depositó " + amount + " en tu cuenta de cheques.");
+    }
 }
-
- /* Checking
-Checking Accounts should have:
-A balance
-A secretKey
-A PrimaryOwner
-An optional SecondaryOwner
-A minimumBalance
-A penaltyFee
-A monthlyMaintenanceFee
-A creationDate
-A status (FROZEN, ACTIVE)
-
-StudentChecking
-Student Checking Accounts are identical to Checking Accounts except that they do NOT have:
-A monthlyMaintenanceFee
-A minimumBalance
-
-Savings
-Savings are identical to Checking accounts except that they
-Do NOT have a monthlyMaintenanceFee
-Do have an interestRate
-
-CreditCard
-CreditCard Accounts have:
-A balance
-A PrimaryOwner
-An optional SecondaryOwner
-A creditLimit
-An interestRate
-A penaltyFee*/

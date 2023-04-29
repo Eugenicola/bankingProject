@@ -2,13 +2,11 @@ package org.bankingProject.jpt.bankingProject.controller.users.impl;
 
 import jakarta.validation.Valid;
 import org.bankingProject.jpt.bankingProject.models.Users.Admin;
-import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AdminServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,12 +14,16 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     @Autowired
     private AdminServiceInterface adminServiceInterface;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/addAdminUser")
     @ResponseStatus(HttpStatus.CREATED)
-    public Admin addNewAdminUser(@RequestBody @Valid Admin user){
+    public Admin addNewAdminUser(@RequestBody @Valid Admin admin){
        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return adminServiceInterface.addAdminUser(user);
+        String encodedPassword = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(encodedPassword);
+        return adminServiceInterface.addAdminUser(admin);
     }
 
     @GetMapping("/adminBalance/{id}")

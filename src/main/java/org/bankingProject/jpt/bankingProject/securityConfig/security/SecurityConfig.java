@@ -89,7 +89,8 @@ public class SecurityConfig {
                 .requestMatchers(GET, "/api/balance/{id}").hasAnyAuthority("ROLE_ACCOUNT_HOLDER")
                 .requestMatchers(PUT, "/api/updateBalance").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER")
-                .requestMatchers(POST, "/api/transferThirdParty").hasAnyAuthority( "ROLE_THIRD_PARTY")
+                .requestMatchers(POST, "/api/depositThirdParty").hasAnyAuthority( "ROLE_THIRD_PARTY")
+                .requestMatchers(POST, "/api/withdrawThirdParty").hasAnyAuthority( "ROLE_THIRD_PARTY")
                 .requestMatchers(DELETE, "/api/deleteAccount/{id}").hasAnyAuthority( "ROLE_ADMIN")
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object

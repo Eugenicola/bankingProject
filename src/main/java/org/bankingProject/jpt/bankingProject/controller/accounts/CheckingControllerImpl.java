@@ -1,4 +1,4 @@
-package org.bankingProject.jpt.bankingProject.controller.accounts.impl;
+package org.bankingProject.jpt.bankingProject.controller.accounts;
 
 import jakarta.validation.Valid;
 import org.bankingProject.jpt.bankingProject.models.accounts.Account;

@@ -1,5 +1,6 @@
 package org.bankingProject.jpt.bankingProject.services.users.impl;
 
+import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
 import org.bankingProject.jpt.bankingProject.models.Users.Admin;
 import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.models.accounts.CreditCard;
@@ -10,6 +11,7 @@ import org.bankingProject.jpt.bankingProject.repositories.accounts.SavingsReposi
 import org.bankingProject.jpt.bankingProject.repositories.users.AdminRepository;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.Role;
 import org.bankingProject.jpt.bankingProject.securityConfig.repositories.RoleRepository;
+import org.bankingProject.jpt.bankingProject.securityConfig.services.impl.UserService;
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.AdminServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +35,15 @@ public class AdminServiceImpl implements AdminServiceInterface {
    private SavingsRepository savingsRepository;
    @Autowired
    private CreditCardRepository creditCardRepository;
+    @Autowired
+    private UserService userService;
 
-    public Admin addAdminUser(Admin user){
+    public Admin addAdminUser(Admin admin){
         Role role = roleRepository.findByName("ROLE_ADMIN");
-        user.getRoles().add(role);
-        return adminRepository.save(user);
+        admin.getRoles().add(role);
+        Admin savedUser = adminRepository.save(admin);
+        userService.loadUserByUsername(savedUser.getUsername());
+        return savedUser;
     }
 
     public Money viewBalance(long id) {
@@ -52,7 +58,7 @@ public class AdminServiceImpl implements AdminServiceInterface {
              cc.applyInterest();
              creditCardRepository.save(cc);
          }
-        return account.getBalance();
+         return account.getBalance();
     }
 
 }

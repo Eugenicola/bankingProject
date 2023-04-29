@@ -1,4 +1,4 @@
-package org.bankingProject.jpt.bankingProject.controller.accounts.impl;
+package org.bankingProject.jpt.bankingProject.controller.accounts;
 
 import jakarta.validation.Valid;
 import org.bankingProject.jpt.bankingProject.models.Users.Admin;
@@ -21,7 +21,7 @@ public class AccountControllerImpl {
 
     @DeleteMapping("/deleteAccount/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Account deleteAccount(@PathVariable("id") long id, Account account) {
+    public Account deleteAccount(@PathVariable("id") Long id, Account account) {
         return accountServiceInterface.deleteAccount(id, account);
     }
 }

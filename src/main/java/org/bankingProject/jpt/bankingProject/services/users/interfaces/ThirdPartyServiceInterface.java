@@ -4,5 +4,5 @@ import org.bankingProject.jpt.bankingProject.models.Users.ThirdParty;
 
 public interface ThirdPartyServiceInterface {
 
-   ThirdParty addThirdParty (ThirdParty user);
+   ThirdParty addThirdParty (ThirdParty thirdParty);
 }
