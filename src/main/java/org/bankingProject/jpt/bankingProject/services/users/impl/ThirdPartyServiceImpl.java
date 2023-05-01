@@ -27,7 +27,7 @@ public class ThirdPartyServiceImpl implements ThirdPartyServiceInterface {
     @Autowired
     private UserService userService;
     @Autowired
-    private AccountRepository accountRepository
+    private AccountRepository accountRepository;
 
     public ThirdParty addThirdParty(ThirdParty thirdParty){
         Role role = roleRepository.findByName("ROLE_THIRD_PARTY");

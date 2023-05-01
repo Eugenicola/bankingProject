@@ -38,7 +38,7 @@ public class ThirdPartyController {
     public Money depositThirdParty (@RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
         return accountServiceInterface.deposit(id, amount);
     }
-    @PostMapping("/depositThirdParty")
+    @PostMapping("/withdrawThirdParty")
     @ResponseStatus(HttpStatus.CREATED)
     public Money withdrawThirdParty (@RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
         return accountServiceInterface.withdraw(id, amount);
