@@ -1,16 +1,25 @@
 package org.bankingProject.jpt.bankingProject.models.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
-import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 import org.bankingProject.jpt.bankingProject.utils.Money;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Account {
     @Id
@@ -21,7 +30,7 @@ public class Account {
             @AttributeOverride(name = "amount", column = @Column (name = "account_balance_amount")),
             @AttributeOverride(name = "currency", column = @Column (name = "account_balance_currency"))
     })
-    private Money balance;
+    Money balance;
     @ManyToOne
     @JoinColumn(name="user_account")
     private AccountHolder primaryOwner;
@@ -35,38 +44,17 @@ public class Account {
         if(balance.getAmount().compareTo(minimumBalance)<0){
             setBalance(new Money(balance.getAmount().subtract(penaltyFee)));
         }
-
     }
 
+
+    public void withdraw(BigDecimal amount) {
+        if (balance.getAmount().compareTo(amount)<0) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"The account doesn't have enough money to complete this action");
+        } else {
+            setBalance(new Money(balance.getAmount().subtract(amount)));
+        }
+    }
+    public void deposit(BigDecimal amount) {
+        setBalance(new Money(balance.getAmount().add(amount)));
+    }
 }
-
- /* Checking
-Checking Accounts should have:
-A balance
-A secretKey
-A PrimaryOwner
-An optional SecondaryOwner
-A minimumBalance
-A penaltyFee
-A monthlyMaintenanceFee
-A creationDate
-A status (FROZEN, ACTIVE)
-
-StudentChecking
-Student Checking Accounts are identical to Checking Accounts except that they do NOT have:
-A monthlyMaintenanceFee
-A minimumBalance
-
-Savings
-Savings are identical to Checking accounts except that they
-Do NOT have a monthlyMaintenanceFee
-Do have an interestRate
-
-CreditCard
-CreditCard Accounts have:
-A balance
-A PrimaryOwner
-An optional SecondaryOwner
-A creditLimit
-An interestRate
-A penaltyFee*/

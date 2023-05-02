@@ -5,5 +5,7 @@ import org.bankingProject.jpt.bankingProject.models.accounts.Checking;
 
 public interface CheckingServiceInterface {
 
-    Account createAccount (Account account);
+    Account createCheckingAccount (Checking account);
+
+    void checkingToStudentChecking (Checking account);
 }

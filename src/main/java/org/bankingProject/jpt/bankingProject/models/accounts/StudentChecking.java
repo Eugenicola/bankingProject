@@ -11,6 +11,7 @@ public class StudentChecking extends Account {
     private String secretKey;
     @Enumerated(EnumType.STRING)
     private Status status;
+
 }
 
 //   StudentChecking

@@ -79,14 +79,20 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/api/login/**").permitAll()
                 .requestMatchers("/error/**").permitAll()
-                .requestMatchers(GET, "/api/balance").hasAnyAuthority("ROLE_ADMIN","ROLE_ACCOUNT_HOLDER")
-                .requestMatchers(PUT, "/api/modifyBalance").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/api/addAccountHolder").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/api/addAdminUser").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(POST, "/api/addThirdParty").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(POST, "/api/addAccounts").hasAnyAuthority("ROLE_ADMIN")
-                .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER", "ROLE_THIRD_PARTY")
-
+                .requestMatchers(POST, "/api/addCheckingAccount").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/addSavingAccount").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/addCreditAccount").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(GET, "/api/accountList").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(GET, "/api/adminBalance/{id}").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(GET, "/api/balance/{id}").hasAnyAuthority("ROLE_ACCOUNT_HOLDER")
+                .requestMatchers(PUT, "/api/updateBalance/{id}").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(POST, "/api/transfer").hasAnyAuthority("ROLE_ACCOUNT_HOLDER")
+                .requestMatchers(POST, "/api/depositThirdParty").hasAnyAuthority( "ROLE_THIRD_PARTY")
+                .requestMatchers(POST, "/api/withdrawThirdParty").hasAnyAuthority( "ROLE_THIRD_PARTY")
+                .requestMatchers(DELETE, "/api/deleteAccount/{id}").hasAnyAuthority( "ROLE_ADMIN")
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);

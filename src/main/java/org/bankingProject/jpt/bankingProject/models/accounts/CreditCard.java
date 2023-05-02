@@ -3,6 +3,7 @@ package org.bankingProject.jpt.bankingProject.models.accounts;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 public class CreditCard extends Account {
-
+    @NotNull
     @DecimalMax(value="100.000", message = "Interest credit limit cannot be higher than 100000")
     private BigDecimal creditLimit = new BigDecimal(100);
     @DecimalMin(value="0.1", message = "Interest rate cannot be lower than 0.1")
     private BigDecimal interestRate =  new BigDecimal(0.2);
 
     private LocalDate lastInterestDate;
+
 
     public void applyInterest() {
         LocalDate currentDate = LocalDate.now();
