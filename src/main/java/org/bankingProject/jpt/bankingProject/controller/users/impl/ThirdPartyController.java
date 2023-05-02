@@ -7,6 +7,7 @@ import org.bankingProject.jpt.bankingProject.services.accounts.interfaces.Accoun
 import org.bankingProject.jpt.bankingProject.services.users.interfaces.ThirdPartyServiceInterface;
 import org.bankingProject.jpt.bankingProject.utils.Money;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -33,15 +34,26 @@ public class ThirdPartyController {
         return thirdPartyServiceinterface.addThirdParty(thirdParty);
     }
 
-    @PostMapping("/depositThirdParty")
+   /* @PostMapping("/depositThirdParty")
     @ResponseStatus(HttpStatus.CREATED)
     public Money depositThirdParty (@RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
         return accountServiceInterface.deposit(id, amount);
-    }
+    }*/
     @PostMapping("/withdrawThirdParty")
     @ResponseStatus(HttpStatus.CREATED)
-    public Money withdrawThirdParty (@RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
+    public Money withdrawThirdParty (@RequestParam String hashKey, @RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
         return accountServiceInterface.withdraw(id, amount);
+    }
+    @PostMapping("/depositThirdParty")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransferMoney thirdPartyDeposit(@RequestBody @Valid TransferMoney transferMoney, @RequestParam String hashKey) throws AccountNotFoundException {
+        return accountServiceInterface.thirdPartyDeposit(transferMoney, hashKey);
+    }
+
+    @PostMapping("/depositThirdParty")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransferMoney thirdPartyWithdraw(@RequestBody @Valid TransferMoney transferMoney, @RequestParam String hashKey) throws AccountNotFoundException {
+        return accountServiceInterface.thirdPartyWithdraw(transferMoney, hashKey);
     }
 
 }

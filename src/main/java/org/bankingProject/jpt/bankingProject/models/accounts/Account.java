@@ -1,14 +1,22 @@
 package org.bankingProject.jpt.bankingProject.models.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
 import org.bankingProject.jpt.bankingProject.utils.Money;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,14 +49,12 @@ public class Account {
 
     public void withdraw(BigDecimal amount) {
         if (balance.getAmount().compareTo(amount)<0) {
-            System.out.println("No tienes suficiente saldo.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"The account doesn't have enough money to complete this action");
         } else {
             setBalance(new Money(balance.getAmount().subtract(amount)));
-            System.out.println("Se retiró " + amount + " de tu cuenta de cheques.");
         }
     }
     public void deposit(BigDecimal amount) {
         setBalance(new Money(balance.getAmount().add(amount)));
-        System.out.println("Se depositó " + amount + " en tu cuenta de cheques.");
     }
 }

@@ -1,6 +1,6 @@
 package org.bankingProject.jpt.bankingProject.services.users.impl;
 
-import org.bankingProject.jpt.bankingProject.models.Users.AccountHolder;
+import org.bankingProject.jpt.bankingProject.dtos.MoneyBalanceDTO;
 import org.bankingProject.jpt.bankingProject.models.Users.Admin;
 import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.models.accounts.CreditCard;
@@ -18,9 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminServiceInterface {
@@ -59,6 +56,14 @@ public class AdminServiceImpl implements AdminServiceInterface {
              creditCardRepository.save(cc);
          }
          return account.getBalance();
+    }
+
+    public Money updateBalance(Long id, MoneyBalanceDTO amount) throws ResponseStatusException {
+        Account account = accountRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found, please check the ID"));
+        account.setBalance(new Money(amount.getAmount()));
+        accountRepository.save(account);
+        return account.getBalance();
     }
 
 }
