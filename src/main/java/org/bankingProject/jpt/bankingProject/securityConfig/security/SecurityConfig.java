@@ -76,7 +76,7 @@ public class SecurityConfig {
         // set the session creation policy to stateless
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         // set up authorization for different request matchers and user roles
-        http.authorizeHttpRequests((requests) -> requests
+        http.   authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/api/login/**").permitAll()
                 .requestMatchers("/error/**").permitAll()
                 .requestMatchers(POST, "/api/addAccountHolder").hasAnyAuthority("ROLE_ADMIN")

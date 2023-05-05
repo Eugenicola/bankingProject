@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.List;
 
 
 @RestController
@@ -36,8 +37,14 @@ public class AccountHolderController {
     @GetMapping("/balance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Money checkBalance(@PathVariable("id") long id) throws AccountNotFoundException  {
-        return accountHolderServiceInterface.viewBalance(id);
+        return accountHolderServiceInterface.checkBalance(id);
     }
+
+    /*@GetMapping("/balance/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Money> checkBalanceList(@PathVariable("id") long id) throws AccountNotFoundException  {
+        return accountHolderServiceInterface.checkBalance(id);
+    }*/
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.CREATED)

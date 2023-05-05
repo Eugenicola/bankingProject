@@ -11,6 +11,6 @@ public interface AccountHolderServiceInterface {
 
     AccountHolder addAccountHolder (AccountHolder accountHolder);
 
-    Money viewBalance(long id) throws AccountNotFoundException;
+    Money checkBalance(long id) throws AccountNotFoundException;
 
 }

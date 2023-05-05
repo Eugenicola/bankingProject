@@ -18,7 +18,10 @@ public class CheckingControllerImpl {
 
     @PostMapping("/addCheckingAccount")
     @ResponseStatus(HttpStatus.CREATED)
-    public Account addNewCheckingAccount(@DateTimeFormat(pattern = "yyyy-MM-dd")@RequestBody @Valid Checking account){
+    public Account addNewCheckingAccount(@RequestBody @Valid Checking account){
         return checkingServiceInterface.createCheckingAccount(account);
     }
 }
+
+
+//@DateTimeFormat(pattern = "yyyy-MM-dd")

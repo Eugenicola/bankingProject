@@ -39,11 +39,13 @@ public class AdminController {
     public List<Account> getAccountList() {
         return accountServiceInterface.getAccountList();
     }
+
     @GetMapping("/adminBalance/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Money getBalance(@PathVariable("id") long id) {
         return adminServiceInterface.viewBalance(id);
     }
+
     @PutMapping("/updateBalance")
     @ResponseStatus(HttpStatus.OK)
     public Money updateBalance(Long id, @RequestBody @Valid MoneyBalanceDTO amount) throws ResponseStatusException{
