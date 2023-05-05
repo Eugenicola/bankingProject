@@ -33,14 +33,13 @@ public class AccountServiceImpl implements AccountServiceInterface {
     @Autowired
     private AccountHolderServiceImpl accountHolderService;
 
+    public List<Account> getAccountList() {
+        return accountRepository.findAll();
+    }
     public Account deleteAccount (Long id, Account account){
         accountRepository.deleteById(id);
         return account;
     }
-    public List<Account> getAccountList() {
-        return accountRepository.findAll();
-    }
-
     public void applyRules(Long id){
         Account account = accountRepository.findById(id).get();
         if(account instanceof Savings){

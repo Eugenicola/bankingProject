@@ -7,6 +7,7 @@ import org.bankingProject.jpt.bankingProject.models.accounts.Account;
 import org.bankingProject.jpt.bankingProject.repositories.accounts.AccountRepository;
 import org.bankingProject.jpt.bankingProject.repositories.users.AccountHolderRepository;
 import org.bankingProject.jpt.bankingProject.securityConfig.models.Role;
+import org.bankingProject.jpt.bankingProject.securityConfig.models.User;
 import org.bankingProject.jpt.bankingProject.securityConfig.repositories.RoleRepository;
 import org.bankingProject.jpt.bankingProject.securityConfig.services.impl.UserService;
 import org.bankingProject.jpt.bankingProject.services.accounts.impl.AccountServiceImpl;
@@ -19,7 +20,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -46,13 +51,20 @@ public class AccountHolderServiceImpl implements AccountHolderServiceInterface {
         return savedUser;
     }
 
-    public Money viewBalance(long id) throws AccountNotFoundException{
+    public Money checkBalance(long id) throws AccountNotFoundException{
         Account account = accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException("Account not found"));
         if(!accountOwner(account.getId())){
             throw new ResponseStatusException (HttpStatus.UNAUTHORIZED, "The user is not the owner of the account");
         }
         return account.getBalance();
     }
+
+   /* public A viewBalance(Long id, User primaryOwnerId, User secondaryOwnerId) throws UserPrincipalNotFoundException {
+        AccountHolder accHolder = accountHolderRepository.findById(id).orElseThrow(() -> new UserPrincipalNotFoundException("The user id doesn't have any account"));
+        List<Account> account = accountRepository.findAllByPrimaryOrSecondaryOwner(primaryOwnerId,secondaryOwnerId);
+        if()
+        return account;
+    }*/
 
     public boolean accountOwner(Long id) throws AccountNotFoundException{
         Account account = accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException("Account not found"));;

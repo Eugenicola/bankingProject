@@ -34,23 +34,13 @@ public class ThirdPartyController {
         return thirdPartyServiceinterface.addThirdParty(thirdParty);
     }
 
-   /* @PostMapping("/depositThirdParty")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Money depositThirdParty (@RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
-        return accountServiceInterface.deposit(id, amount);
-    }*/
-    @PostMapping("/withdrawThirdParty")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Money withdrawThirdParty (@RequestParam String hashKey, @RequestBody @Valid Long id, BigDecimal amount) throws AccountNotFoundException {
-        return accountServiceInterface.withdraw(id, amount);
-    }
     @PostMapping("/depositThirdParty")
     @ResponseStatus(HttpStatus.CREATED)
     public TransferMoney thirdPartyDeposit(@RequestBody @Valid TransferMoney transferMoney, @RequestParam String hashKey) throws AccountNotFoundException {
         return accountServiceInterface.thirdPartyDeposit(transferMoney, hashKey);
     }
 
-    @PostMapping("/depositThirdParty")
+    @PostMapping("/withdrawThirdParty")
     @ResponseStatus(HttpStatus.CREATED)
     public TransferMoney thirdPartyWithdraw(@RequestBody @Valid TransferMoney transferMoney, @RequestParam String hashKey) throws AccountNotFoundException {
         return accountServiceInterface.thirdPartyWithdraw(transferMoney, hashKey);
